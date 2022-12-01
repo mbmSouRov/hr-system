@@ -3,9 +3,9 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import "./style.css";
 import { FaArrowRight } from "react-icons/fa";
-const SignupForm1 = ({ formData }) => {
-  // const { formData } = data;
-  console.log(formData);
+
+const SignupForm2 = (fisrtInfo) => {
+  console.log(fisrtInfo);
   const navigate = useNavigate();
   const {
     register,
@@ -13,10 +13,10 @@ const SignupForm1 = ({ formData }) => {
     handleSubmit,
   } = useForm();
   const handleLogin = (data, e) => {
-    const firstInfo = [data.firstName, data.lastName].join(" ");
-    console.log(firstInfo);
+    console.log(data);
     e.target.reset();
-    navigate("/step-2");
+
+    navigate("/step-3");
   };
   return (
     <section className="border shadow-lg shadow-slate-400 p-20 w-full rounded-xl">
@@ -24,48 +24,45 @@ const SignupForm1 = ({ formData }) => {
         <p className="text-xl text-center font-semibold mb-20">SignUp Form</p>
         <div className="form-control w-full max-w-lg my-10">
           <input
-            type="text"
-            placeholder="Write First Name"
-            {...register("firstName", {
-              required: "First Name is required",
+            type="phoneNumber"
+            placeholder="+8801xxxxxxxxx"
+            {...register("phoneNumber", {
+              required: "Phone Number required",
             })}
             className="input border-0 border-b-2 w-full max-w-lg px-2 outline-0"
           />
-          {errors.firstName && (
-            <p className="text-slate-500">{errors.firstName?.message}</p>
+          {errors.phoneNumber && (
+            <p className="text-slate-500">{errors.phoneNumber?.message}</p>
           )}
         </div>
         <div className="form-control w-full max-w-xs my-10">
           <input
-            type="text"
-            placeholder="Write Last Name"
-            {...register("lastName", {
-              required: "Last Name is required",
+            type="Email"
+            placeholder="Write Email Address"
+            {...register("email", {
+              required: "Email Address required",
             })}
             className="input border-0 border-b-2 w-full max-w-xs px-2 outline-0"
           />
 
-          {errors.lastName && (
-            <p className="text-slate-500">{errors.lastName?.message}</p>
+          {errors.email && (
+            <p className="text-slate-500">{errors.email?.message}</p>
           )}
         </div>
-        <div className="flex justify-center">
+        <div className="flex items-center">
+          <p className="text-slate-500 mt-5 text-sm font-semibold">
+            <Link to={"/step-1"}>Back</Link>{" "}
+          </p>
           <button
-            className="submitBtn w-1/3 rounded-xl mt-5 font-semibold shadow-slate-400 shadow-lg"
+            className="submitBtn w-1/3 rounded-xl mt-5 font-semibold shadow-slate-400 shadow-lg mx-auto"
             type="submit"
           >
             Next Step <FaArrowRight className="inline"></FaArrowRight>
           </button>
         </div>
-        <p className="mt-10 font-light text-sm">
-          Already Have An Account?{" "}
-          <span className="text-blue-500 font-semibold uppercase hover:underline">
-            <Link to={"/"}>Login Here</Link>
-          </span>
-        </p>
       </form>
     </section>
   );
 };
 
-export default SignupForm1;
+export default SignupForm2;

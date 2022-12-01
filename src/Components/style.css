@@ -1,7 +1,7 @@
 .submitBtn {
   color: whitesmoke;
   background-color: #1678cb;
-  padding: 8px;
+  padding: 12px 8px;
   width: 150px;
 }
 .submitBtn:hover {

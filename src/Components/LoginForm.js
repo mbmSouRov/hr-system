@@ -13,23 +13,23 @@ const LoginForm = () => {
     e.target.reset();
   };
   return (
-    <section className="border shadow-lg shadow-slate-400 p-20 w-max rounded-xl">
+    <section className="border shadow-lg shadow-slate-400 p-20 w-full rounded-xl">
       <form onSubmit={handleSubmit(handleLogin)}>
         <p className="text-xl text-center font-semibold mb-20">Log In Form</p>
-        <div className="form-control w-full max-w-lg">
+        <div className="form-control w-full max-w-lg my-10">
           <input
             type="text"
             placeholder="Write Email Address"
             {...register("email", {
               required: "Email Address is required",
             })}
-            className="input border-0 border-b-2 w-full max-w-lg my-2 px-2 outline-0"
+            className="input border-0 border-b-2 w-full max-w-lg px-2 outline-0"
           />
           {errors.email && (
-            <p className="text-red-600">{errors.email?.message}</p>
+            <p className="text-slate-500">{errors.email?.message}</p>
           )}
         </div>
-        <div className="form-control w-full max-w-xs">
+        <div className="form-control w-full max-w-xs my-10">
           <input
             type="password"
             placeholder="Write Password"
@@ -40,18 +40,21 @@ const LoginForm = () => {
                 message: "Password must be 8 characters",
               },
             })}
-            className="input border-0 border-b-2 w-full max-w-xs my-2 px-2 outline-0"
+            className="input border-0 border-b-2 w-full max-w-xs px-2 outline-0"
           />
 
           {errors.password && (
             <p className="text-slate-500">{errors.password?.message}</p>
           )}
         </div>
-        <input
-          className="submitBtn rounded-xl mt-5 mx-20"
-          value="Log In"
-          type="submit"
-        />
+        <div className="flex justify-center">
+          <button
+            className="submitBtn w-1/3 rounded-xl mt-5 font-semibold shadow-slate-400 shadow-lg"
+            type="submit"
+          >
+            Log In
+          </button>
+        </div>
         <p className="mt-10 font-light text-sm">
           Don't Have An Account?{" "}
           <span className="text-blue-500 font-semibold uppercase hover:underline">
