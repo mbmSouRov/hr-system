@@ -1,0 +1,11 @@
+.submitBtn {
+  color: whitesmoke;
+  background-color: #1678cb;
+  padding: 8px;
+  width: 150px;
+}
+.submitBtn:hover {
+  background-color: white;
+  outline: 1px #1678cb solid;
+  color: #1678cb;
+}

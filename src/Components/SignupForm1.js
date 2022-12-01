@@ -1,61 +1,62 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-
+import { Link } from "react-router-dom";
+import "./style.css";
+import { FaArrowRight } from "react-icons/fa";
 const SignupForm1 = () => {
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
+  const handleLogin = (data, e) => {
+    console.log(data);
+    e.target.reset();
+  };
   return (
-    <section className="border">
-      <p className="text-xl text-center font-semibold mb-10">Signup Form</p>
-      <form>
-        <div className="form-control w-full max-w-xs">
-          <label className="label">
-            {" "}
-            <span className="label-text">Write Email Address</span>
-          </label>
+    <section className="border shadow-lg shadow-slate-400 p-20 w-max rounded-xl">
+      <form onSubmit={handleSubmit(handleLogin)}>
+        <p className="text-xl text-center font-semibold mb-20">Signup Form</p>
+        <div className="form-control w-full max-w-lg">
           <input
             type="text"
-            {...register("email", {
-              required: "Email Address is required",
+            placeholder="Write First Name"
+            {...register("firstName", {
+              required: "First Name is required",
             })}
-            className="input input-bordered w-full max-w-xs"
+            className="input border-0 border-b-2 w-full max-w-lg my-2 px-2 outline-0"
           />
-          {errors.email && (
-            <p className="text-red-600">{errors.email?.message}</p>
+          {errors.firstName && (
+            <p className="text-red-600">{errors.firstName?.message}</p>
           )}
         </div>
         <div className="form-control w-full max-w-xs">
-          <label className="label">
-            {" "}
-            <span className="label-text">Write Password</span>
-          </label>
           <input
             type="password"
-            {...register("password", {
-              required: "Password is required",
-              minLength: {
-                value: 6,
-                message: "Password must be 6 characters or longer",
-              },
+            placeholder="Write Last Name"
+            {...register("lastName", {
+              required: "Last Name is required",
             })}
-            className="input input-bordered w-full max-w-xs"
+            className="input border-0 border-b-2 w-full max-w-xs my-2 px-2 outline-0"
           />
 
-          {errors.password && (
-            <p className="text-red-600">{errors.password?.message}</p>
+          {errors.lastName && (
+            <p className="text-slate-500">{errors.lastName?.message}</p>
           )}
         </div>
-        <input
-          className="btn btn-accent w-full rounded-xl"
-          value="Log In"
+        {/* <input /> */}
+        <button
+          className="submitBtn w-1/3 rounded-xl mt-5 ml-16"
+          // value={"Next Step"}
           type="submit"
-        />
-        <p>
-          Don't Have An Account?{" "}
-          <span className="text-blue-500 font-semibold">Signup Here</span>
+        >
+          Next Step <FaArrowRight></FaArrowRight>
+        </button>
+        <p className="mt-10 font-light text-sm">
+          Already Have An Account?{" "}
+          <span className="text-blue-500 font-semibold uppercase hover:underline">
+            <Link to={"/"}>Login Here</Link>
+          </span>
         </p>
       </form>
     </section>
