@@ -17,7 +17,7 @@ const SignupForm1 = ({ setFirstName, setLastName }) => {
     navigate("/step-2");
   };
   return (
-    <section className="border shadow-lg shadow-slate-400 p-20 w-full rounded-xl">
+    <section className="border shadow-lg shadow-slate-400 p-10 lg:p-20 mx-5 lg:w-full rounded-xl">
       <form onSubmit={handleSubmit(handleLogin)}>
         <p className="text-xl text-center font-semibold mb-20">SignUp Form</p>
         <div className="form-control w-full max-w-lg my-10">

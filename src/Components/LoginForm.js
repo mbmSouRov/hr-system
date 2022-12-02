@@ -1,18 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { createSearchParams, Link, useNavigate } from "react-router-dom";
+import AttendancePage from "./AttendancePage";
 import "./style.css";
-const LoginForm = () => {
-  const [accs_token, setAccs_token] = useState(null);
-  const [userInfo, setUserInfo] = useState(null);
-  const navigate = useNavigate();
+const LoginForm = ({ accs_token, setAccs_token }) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
+  const navigate = useNavigate();
   const HandleLogin = (data, e) => {
     const loginInfo = {
       email: data.email,
@@ -30,27 +27,17 @@ const LoginForm = () => {
         console.log(data);
         setAccs_token(data.access_token);
         e.target.reset();
-        toast.success("Succesfully Logged In!");
-        navigate("/");
+        navigate({
+          pathname: "/attendancePage",
+          search: createSearchParams({
+            id: `${data.access_token}`,
+          }).toString(),
+        });
       });
   };
 
-  useEffect(() => {
-    fetch("https://test.nexisltd.com/test", {
-      headers: {
-        authorization: `Bearer ${accs_token}`,
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setUserInfo(data);
-      });
-  }, [accs_token]);
-  console.log(userInfo);
   return (
-    <section className="border shadow-lg shadow-slate-400 p-20 w-full rounded-xl">
+    <section className="border shadow-lg shadow-slate-400 p-10 lg:p-20 mx-5 lg:w-full rounded-xl">
       <form onSubmit={handleSubmit(HandleLogin)}>
         <p className="text-xl text-center font-semibold mb-20">Log In Form</p>
         <div className="form-control w-full max-w-lg my-10">
@@ -99,6 +86,11 @@ const LoginForm = () => {
           </span>
         </p>
       </form>
+      <div className="hidden">
+        {accs_token && (
+          <AttendancePage accs_token={accs_token}></AttendancePage>
+        )}
+      </div>
     </section>
   );
 };

@@ -9,3 +9,9 @@
   outline: 1px #1678cb solid;
   color: #1678cb;
 }
+
+.attendanceInfo {
+  color: whitesmoke;
+  background-color: #1678cb;
+  padding: 15px 10px;
+}

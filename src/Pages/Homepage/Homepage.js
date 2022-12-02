@@ -9,9 +9,15 @@ const Homepage = ({ component }) => {
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [emailId, setEmailId] = useState(null);
 
+  const [accs_token, setAccs_token] = useState(null);
   return (
     <div>
-      {component === "login" && <LoginForm></LoginForm>}
+      {component === "login" && (
+        <LoginForm
+          accs_token={accs_token}
+          setAccs_token={setAccs_token}
+        ></LoginForm>
+      )}
       {component === "signupform1" && (
         <SignupForm1
           setFirstName={setFirstName}
