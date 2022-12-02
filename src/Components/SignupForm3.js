@@ -2,10 +2,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import "./style.css";
-import { FaArrowRight } from "react-icons/fa";
 import toast from "react-hot-toast";
 
-const SignupForm3 = () => {
+const SignupForm3 = ({ firstName, lastName, phoneNumber, emailId }) => {
   const navigate = useNavigate();
   const {
     register,
@@ -13,10 +12,29 @@ const SignupForm3 = () => {
     handleSubmit,
   } = useForm();
   const handleLogin = (data, e) => {
-    console.log(data);
-    e.target.reset();
-    navigate("/");
-    toast.success("Account Created! Please LogIn");
+    const formInfo = {
+      first_name: firstName,
+      last_name: lastName,
+      phone_number: phoneNumber,
+      email: emailId,
+      password: data.password,
+    };
+    console.log(formInfo);
+
+    fetch("https://test.nexisltd.com/signup", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(formInfo),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        e.target.reset();
+        navigate("/");
+        toast.success("Account Created! Please LogIn");
+      });
   };
   return (
     <section className="border shadow-lg shadow-slate-400 p-20 w-full rounded-xl">
@@ -47,7 +65,7 @@ const SignupForm3 = () => {
             className="submitBtn w-1/3 rounded-xl mt-5 font-semibold shadow-slate-400 shadow-lg mx-auto"
             type="submit"
           >
-            Next Step <FaArrowRight className="inline"></FaArrowRight>
+            Sign Up
           </button>
         </div>
       </form>

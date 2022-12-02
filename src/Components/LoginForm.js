@@ -1,20 +1,57 @@
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 import "./style.css";
 const LoginForm = () => {
+  const [accs_token, setAccs_token] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const handleLogin = (data, e) => {
-    console.log(data);
-    e.target.reset();
+  const HandleLogin = (data, e) => {
+    const loginInfo = {
+      email: data.email,
+      password: data.password,
+    };
+    fetch("https://test.nexisltd.com/login", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(loginInfo),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setAccs_token(data.access_token);
+        e.target.reset();
+        toast.success("Succesfully Logged In!");
+        navigate("/");
+      });
   };
+
+  useEffect(() => {
+    fetch("https://test.nexisltd.com/test", {
+      headers: {
+        authorization: `Bearer ${accs_token}`,
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setUserInfo(data);
+      });
+  }, [accs_token]);
+  console.log(userInfo);
   return (
     <section className="border shadow-lg shadow-slate-400 p-20 w-full rounded-xl">
-      <form onSubmit={handleSubmit(handleLogin)}>
+      <form onSubmit={handleSubmit(HandleLogin)}>
         <p className="text-xl text-center font-semibold mb-20">Log In Form</p>
         <div className="form-control w-full max-w-lg my-10">
           <input

@@ -3,9 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import "./style.css";
 import { FaArrowRight } from "react-icons/fa";
-const SignupForm1 = ({ formData }) => {
-  // const { formData } = data;
-  console.log(formData);
+const SignupForm1 = ({ setFirstName, setLastName }) => {
   const navigate = useNavigate();
   const {
     register,
@@ -13,8 +11,8 @@ const SignupForm1 = ({ formData }) => {
     handleSubmit,
   } = useForm();
   const handleLogin = (data, e) => {
-    const firstInfo = [data.firstName, data.lastName].join(" ");
-    console.log(firstInfo);
+    setFirstName(data.firstName);
+    setLastName(data.lastName);
     e.target.reset();
     navigate("/step-2");
   };

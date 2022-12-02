@@ -4,8 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./style.css";
 import { FaArrowRight } from "react-icons/fa";
 
-const SignupForm2 = (fisrtInfo) => {
-  console.log(fisrtInfo);
+const SignupForm2 = ({ setPhoneNumber, setEmailId }) => {
   const navigate = useNavigate();
   const {
     register,
@@ -13,10 +12,10 @@ const SignupForm2 = (fisrtInfo) => {
     handleSubmit,
   } = useForm();
   const handleLogin = (data, e) => {
-    console.log(data);
     e.target.reset();
-
     navigate("/step-3");
+    setEmailId(data.email);
+    setPhoneNumber(data.phoneNumber);
   };
   return (
     <section className="border shadow-lg shadow-slate-400 p-20 w-full rounded-xl">
